@@ -19,13 +19,13 @@ export const getAllPersons = async (req: Request, res: Response) => {
         const skip = (page - 1) * pageSize;
         const take = pageSize;
 
-        const where: Prisma.PersonWhereInput = {
+        const where: any = {
             OR: [
                 { first_name: { contains: search, mode: 'insensitive' } },
                 { middle_name: { contains: search, mode: 'insensitive' } },
                 { last_name: { contains: search, mode: 'insensitive' } },
             ],
-        }
+        };
 
         const persons = await prisma.person.findMany({
             skip: skip,
@@ -64,7 +64,7 @@ export const getAllPersons = async (req: Request, res: Response) => {
 
         res.status(200).json({
             status: 200,
-            message: "Get all person successfully",
+            message: "Get all persons successfully",
             data: {
                 totalPages: totalPages,
                 data: formattedPersons
